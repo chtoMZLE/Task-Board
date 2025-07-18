@@ -6,19 +6,15 @@ body {
     color: #D2D2D4;
     padding: 0;
     margin: 0;
-    height: 100%;
-
+    
 }
 
 .grid{
-    height: 100%;
-
-    display: grid;
-    grid-template-columns: 300px 1612px;
-    grid-template-rows: 100px 854px;
-    grid-template-areas: 
-        "header aside"
-        "header main";
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: row;
+    overflow: hidden;
 }
 
 a {
@@ -31,11 +27,19 @@ ul {
     padding: 0px;
 }
 
-/* header */
+/* sidebar */
 
-.header{
-    grid-area: header;
+.sidebar {
     background-color: #16354D;
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* header */
+.header{
     font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -53,18 +57,24 @@ ul {
 
 .header__nav-button{
     color: #D2D2D4;
-    font-size: 20px;
-    height: 20px;
-    width: 20px;
+    font-size: 30px;
+    height: 50px;
+    width: 50px;
     display: flex;
     justify-content: center;  
     align-items: center;
     border: 0;
+    padding-left: 30px;
     background-color: #16354D;
+}
+
+.header__nav-button:hover {
+    color: #9c9b9b;
 }
 
 .header__list{
     padding: 0 20px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;  
@@ -79,24 +89,64 @@ ul {
     opacity: 1;
 }
 
+/*footer*/
+
+footer{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 22px; 
+    margin: 0 0 40px;
+}
+
+.footer__list{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    gap: 15px;   
+}
+
+
 /*main*/
 
 main{
-    grid-area: main;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
+
+.main__button--addBoard{
+    width: 150px;
+    height: 42px;
+    border: 0;
+    margin: 20px 20px 0;
+    background-color: #D2D2D4;
+}
+
+.main__button--addBoard:hover {
+    background-color: #c9c9ce;
+}
+
 .main__workspace{
-    height: 100%; 
     color: #000;
+    flex: 1;
+    overflow-x: auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 10px;
+    margin-top: 20px;
 }
 
 .main__workspace--board{
     width: 262px;
-    height: 286px;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     border-radius: 2%;
     padding: 10px;
@@ -118,10 +168,10 @@ main{
 }
 
 .board__title--settings {
-    margin: 8px 0 0;
+    font-size: 25px;
+    margin: 2px 0 0;
     border: 0;
     background-color: #fff;
-    font-size: 18px;
 }
 
 .board__subtitle{
@@ -129,8 +179,14 @@ main{
     margin: 5px 0 0 10px;
 }
 
+.board__task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .board__task{
-    margin: 12px 0px 0px;
+    margin: 12px 0 0;
     padding: 2px 0 20px 10px;
     border: 1px solid #E4E5EA;
 }
@@ -138,45 +194,89 @@ main{
 .button__addtask{
     width: 262px;
     height: 42px;
-    margin: 45px 0px 0px;
+    margin: 12px 0 0;
     border: 0;
     display: flex;
     align-items: center; 
     justify-content: center;
-}
-
-/*aside*/
-
-aside{
-    grid-area: aside;
     background-color: #E4E5EA;
-    display: flex;
-    align-items: center; 
 }
 
-.aside__button--addBoard{
-    width: 150px;
-    height: 42px;
+.button__addtask:hover {
+    background-color: #c9c9ce;
+}
+
+.board__title--settings:hover {
+    color: #093a5f;
+}
+
+/* Скрытие кнопок по умолчанию */
+.button__addtask,
+.board__title--settings {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Показ кнопок при наведении на доску */
+.main__workspace--board:hover .button__addtask,
+.main__workspace--board:hover .board__title--settings {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* Стили для меню доски (...) */
+
+.board__menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1000;
+    border-radius: 4px;
+    min-width: 120px;
+}
+
+.board__menu button {
+    width: 100%;
+    padding: 8px;
+    background-color: #fff;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.board__menu button:hover {
+    background-color: #eee;
+}
+
+
+/* Стили для добавления задачи  */
+
+.task__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.task__input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.task__save,
+.task__cancel {
+    height: 36px;
     border: 0;
-    margin: 0 20px 0;
+    font-size: 14px;
+    background-color: #D2D2D4;
+    cursor: pointer;
 }
 
-/*footer*/
-
-footer{
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    padding: 0 22px; 
-    margin: 0 0 40px;
-}
-
-.footer__list{
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  
-    gap: 15px;   
+.task__save:hover,
+.task__cancel:hover {
+    background-color: #c9c9ce;
 }
