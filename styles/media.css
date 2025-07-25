@@ -7,7 +7,7 @@
         display: none;
     }
 
-    .footer {
+    .sidebar__footer {
         display: none;
     }
 
@@ -32,7 +32,7 @@
         gap: 15px; 
     }
 
-    .sidebar.open footer {
+    .sidebar.open sidebar__footer {
         display: block;
         font-size: 30px;
     }
